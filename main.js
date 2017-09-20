@@ -1,3 +1,5 @@
+let estudiantes = [];
+
 function inicio() 
 {
     // Elementos
@@ -25,9 +27,8 @@ function inicio()
     let eventoActualizar = function (e) 
     {
         e.preventDefault();
-        let estudiantes = obtenerListaEstudiantes();
-        let estudiantesActualizar = actualizar(estudiantes);
-        //resultado.innerHTML = mostrarLista(estudiantesActualizar);
+        estudiantes = actualizar(estudiantes);
+        resultado.innerHTML = mostrarLista(estudiantes);
     };
     
     let eventoEmpleabilidad = function (e) 
@@ -44,8 +45,6 @@ function inicio()
     botonActualizar.addEventListener(`click`, eventoActualizar);
     botonEmpleabilidad.addEventListener(`click`, eventoEmpleabilidad);
 }inicio();
-
-let estudiantes = [];
 
 function obtenerListaEstudiantes() 
 {
@@ -120,13 +119,16 @@ function mostrarLista(estudiantes)
 
 function actualizar(estudiantes)
 {
-    let filtrar = estudiantes.filter(function(estudiante){
-        return (estudiante.puntosTecnicos >= 70) && (estudiante.puntosHSE >= 70);
+    return estudiantes.filter(function(estudiante)
+    {
+        return ((parseInt(estudiante.puntosTecnicos) + parseInt(estudiante.puntosHSE))/2 >= 70);
     });
-    return filtrar;
 }
 
 function empleabilidad(estudiantes)
 {
-    return actualizar(estudiantes);
+    return estudiantes.filter(function(estudiante)
+    {
+        return ((parseInt(estudiante.puntosTecnicos) + parseInt(estudiante.puntosHSE))/2 >= 70);
+    });
 }
